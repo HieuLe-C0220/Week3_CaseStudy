@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("permission_id",user.getPermission_Id());
                 System.out.println(user.getPermission_Id());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("view/login.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("view/homePageAdmin.jsp");
                 dispatcher.forward(request,response);
             } else {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("");

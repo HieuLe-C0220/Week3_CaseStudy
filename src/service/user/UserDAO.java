@@ -31,7 +31,7 @@ public class UserDAO implements IUserDAO {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             String user = resultSet.getString("nickName");
-            String pass = resultSet.getString("password");
+            String pass = resultSet.getString("passwords");
             int permission_Id = resultSet.getInt("permission_Id");
             User user1 = new User(user,pass,permission_Id);
             userList.add(user1);
