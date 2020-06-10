@@ -7,7 +7,13 @@ public class User {
     private String address;
     private String nickName;
     private String passWord;
-    private String permission_Id;
+    private int permission_Id;
+
+    public User(String nickName, String password, int permission_id) {
+        this.nickName = nickName;
+        this.passWord = password;
+        this.permission_Id = permission_id;
+    }
 
     public int getUserID() {
         return userID;
@@ -57,11 +63,11 @@ public class User {
         this.passWord = passWord;
     }
 
-    public String getPermission_Id() {
+    public int getPermission_Id() {
         return permission_Id;
     }
 
-    public void setPermission_Id(String permission_Id) {
+    public void setPermission_Id(int permission_Id) {
         this.permission_Id = permission_Id;
     }
 
@@ -75,7 +81,7 @@ public class User {
         this.passWord = passWord;
     }
 
-    public User(int userID, String firstName, String lastName, String address, String nickName, String passWord, String permission_Id) {
+    public User(int userID, String firstName, String lastName, String address, String nickName, String passWord, int permission_Id) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;

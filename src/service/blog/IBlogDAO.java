@@ -1,11 +1,10 @@
-package dao;
+package service.blog;
 
 import model.Blog;
-import model.User;
 
 import java.util.List;
 
-public interface BlogDAO {
+public interface IBlogDAO {
     void insertBlog(Blog blog);
     Blog selectBlog(int id);
     List<Blog> selectAllBlog();

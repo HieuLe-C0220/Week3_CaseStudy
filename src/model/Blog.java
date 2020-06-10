@@ -67,6 +67,14 @@ public class Blog {
         this.category_id = category_id;
     }
 
+    public Blog(String header, String content, String author, int category_id, String censor) {
+        this.header = header;
+        this.content = content;
+        this.author = author;
+        this.category_id = category_id;
+        this.censor = censor;
+    }
+
     public Blog(int id, String header, String content, String author, int category_id, String censor) {
         this.id = id;
         this.header = header;
