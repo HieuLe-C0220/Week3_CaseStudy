@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "UserServlet",urlPatterns = "/adminPage")
+@WebServlet(name = "AdminServlet",urlPatterns = "/adminPage")
 public class AdminServlet extends HttpServlet {
     private final BlogDAO blogDAO = BlogDAO.getInstance();
     private final UserDAO userDAO = UserDAO.getInstance();
@@ -31,6 +31,9 @@ public class AdminServlet extends HttpServlet {
             switch (action) {
                 case "blogList":
                     showBlogList(request,response);
+                    break;
+                case "editBlog":
+                    showEditBlog(request,response);
                     break;
                 default:
                     showInterface(request,response);
@@ -63,6 +66,13 @@ public class AdminServlet extends HttpServlet {
         List<Blog> blogList = blogDAO.selectAllBlogApproved();
         request.setAttribute("blogList",blogList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/adminView/blogList.jsp");
+        dispatcher.forward(request,response);
+    }
+    private void showEditBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Blog existingBlog = blogDAO.selectBlog(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/adminView/editBlog.jsp");
+        request.setAttribute("blog",existingBlog);
         dispatcher.forward(request,response);
     }
 }
