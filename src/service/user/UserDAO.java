@@ -14,10 +14,10 @@ import java.util.List;
 public class UserDAO implements IUserDAO {
     private Connection connection;
     private static UserDAO instance;
-    public UserDAO() throws SQLException, ClassNotFoundException {
+    public UserDAO() {
         this.connection = DBConnection.getConnection();
     }
-    public static UserDAO getInstance() throws SQLException, ClassNotFoundException {
+    public static UserDAO getInstance() {
         if (instance == null) {
             instance = new UserDAO();
         }

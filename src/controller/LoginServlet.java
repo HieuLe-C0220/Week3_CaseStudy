@@ -15,16 +15,7 @@ import java.sql.SQLException;
 
 @WebServlet(name = "LoginServlet",urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    private UserDAO userDAO;
-    {
-        try {
-            userDAO = UserDAO.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    private final UserDAO userDAO = UserDAO.getInstance();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nickName = request.getParameter("nickName");
         String password = request.getParameter("password");
@@ -32,10 +23,10 @@ public class LoginServlet extends HttpServlet {
         try {
             user = userDAO.checkUser(nickName,password);
             if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("permission_id",user.getPermission_Id());
-                System.out.println(user.getPermission_Id());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("view/homePageAdmin.jsp");
+//                HttpSession session = request.getSession();
+//                session.setAttribute("permission_id",user.getPermission_Id());
+//                System.out.println(user.getPermission_Id());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("view/homePage.jsp");
                 dispatcher.forward(request,response);
             } else {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("");
