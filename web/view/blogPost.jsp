@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit Blog</title>
+    <title>Post Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" type="text/css" href="bootstrapPostBlog/bootstrap/css/bootstrap.min.css" />
@@ -22,7 +22,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/userPage">My Blog</a>
+        <a class="navbar-brand" href="/adminPage?action=&user=${nickName.nickName}">My Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,9 +43,14 @@
     <!-- New Blog Post - START -->
     <div class="container">
         <div class="row" id="row_style">
+            <p style="text-align: center">
+                <c:if test="${requestScope['mess']!=null}">
+                    <span class="mess">${requestScope['mess']}</span>
+                </c:if>
+            </p>
             <h4 class="text-center">Chia sẻ là còn mãi</h4>
             <div class="col-md-4   col-md-offset-4">
-                <form method="post" action="/userPage?action=postBlog&user=${requestScope['nickName'].getNickName()}">
+                <form method="post">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Tiêu đề" name="header">
                     </div>

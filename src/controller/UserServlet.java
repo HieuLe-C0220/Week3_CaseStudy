@@ -28,10 +28,10 @@ public class UserServlet extends HttpServlet {
         try {
             switch (action) {
                 case "postBlog":
-                    postBlog(request,response,nickName);
+                    postBlog(request,response);
                     break;
                 default:
-                    showInterfaceUser(request,response,nickName);
+                    showInterfaceUser(request,response);
                     break;
             }
         } catch (SQLException e) {
@@ -51,10 +51,10 @@ public class UserServlet extends HttpServlet {
                     showNewFormBlog(request,response);
                     break;
                 case "selectBlogByMe":
-                    showBlogByMe(request,response,nickName);
+                    showBlogByMe(request,response);
                     break;
                 default:
-                    showInterfaceUser(request,response, nickName);
+                    showInterfaceUser(request,response);
                     break;
             }
         } catch (SQLException e) {
@@ -62,13 +62,13 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    private void showInterfaceUser(HttpServletRequest request, HttpServletResponse response, String nickName) throws ServletException, IOException {
+    private void showInterfaceUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/homePageUser.jsp");
         dispatcher.forward(request,response);
     }
 
-    private void showBlogByMe(HttpServletRequest request, HttpServletResponse response, String nickName) throws SQLException, ServletException, IOException {
-        nickName = request.getParameter("nickName");
+    private void showBlogByMe(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String nickName = request.getParameter("nickName");
         List<Blog> listBlogByMe = blogDAO.selectBlogByNickName(nickName);
         request.setAttribute("listBlogByMe",listBlogByMe);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/userView/blogListByMe.jsp");
@@ -83,10 +83,10 @@ public class UserServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    private void postBlog(HttpServletRequest request, HttpServletResponse response, String nickName) throws SQLException, ServletException, IOException {
+    private void postBlog(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String header = request.getParameter("header");
         String content = request.getParameter("content");
-        nickName = request.getParameter("nickName");
+        String nickName = request.getParameter("nickName");
         long millis1 = new java.util.Date().getTime();
         java.sql.Timestamp date = new java.sql.Timestamp(millis1);
         int category_id = Integer.parseInt(request.getParameter("category_id"));

@@ -62,7 +62,7 @@
                 <div class="text-center w-full p-t-23">
                     <a href="#" class="txt1">
                         Forgot password?
-                    </a><br/><br/>
+                    </a><br/>
                     <a href="http://localhost:8080/" style="color: white"> <- Back to Home Blog</a>
                 </div>
             </form>

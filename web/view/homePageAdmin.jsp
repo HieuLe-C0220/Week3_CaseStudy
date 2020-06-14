@@ -20,19 +20,25 @@
         <a class="nav-link active" href="http://localhost:8080/">Trang chủ</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/adminPage?action=blogList">Danh sách bài viết</a>
+        <a class="nav-link" href="/adminPage?action=blogList&user=${nickName.nickName}">Danh sách bài viết</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/adminPage?action=selectBlog">Tra cứu bài viết</a>
+        <a class="nav-link" href="/adminPage?action=postBlog&user=${nickName.nickName}">Đăng bài</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/adminPage?action=blogWait">Bài viết đang chờ duyệt</a>
+        <a class="nav-link" href="/adminPage?action=selectBlog&user=${nickName.nickName}">Tra cứu bài viết</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/adminPage?action=userList">Danh sách người dùng</a>
+        <a class="nav-link" href="/adminPage?action=blogWait&user=${nickName.nickName}">Bài viết đang chờ duyệt</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/adminPage?action=userSearch">Tra cứu người dùng</a>
+        <a class="nav-link" href="/adminPage?action=userList&user=${nickName.nickName}">Danh sách người dùng</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/adminPage?action=userSearch&user=${nickName.nickName}">Tra cứu người dùng</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/adminPage?action=addUser&user=${nickName.nickName}">Thêm thành viên</a>
     </li>
 </ul>
 </body>

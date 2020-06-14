@@ -9,7 +9,11 @@ public class User {
     private String passWord;
     private int permission_Id;
 
-    public User(String nickName,String passWord) {
+    public User(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public User(String nickName, String passWord) {
         this.nickName = nickName;
         this.passWord = passWord;
     }
