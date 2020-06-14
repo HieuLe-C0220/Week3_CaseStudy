@@ -9,10 +9,21 @@ public class User {
     private String passWord;
     private int permission_Id;
 
+    public User(String nickName,String passWord) {
+        this.nickName = nickName;
+        this.passWord = passWord;
+    }
     public User(String nickName, String password, int permission_id) {
         this.nickName = nickName;
         this.passWord = password;
         this.permission_Id = permission_id;
+    }
+
+    public User(int userID, String nickName, String passWord, int permission_Id) {
+        this.userID = userID;
+        this.nickName = nickName;
+        this.passWord = passWord;
+        this.permission_Id = permission_Id;
     }
 
     public int getUserID() {

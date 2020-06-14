@@ -20,9 +20,36 @@ public class BlogDAO implements IBlogDAO {
         }
         return instance;
     }
-    @Override
-    public void insertBlog(Blog blog) {
 
+    @Override
+    public List<Blog> selectBlogByNickName(String nickName) throws SQLException {
+        List<Blog> blogByMe = new ArrayList<>();
+        String sql = "call selectBlogByAuthor(?)";
+        CallableStatement statement = connection.prepareCall(sql);
+        statement.setString(1,nickName);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            String header = resultSet.getString(2);
+            String author = resultSet.getString(4);
+            Timestamp date = resultSet.getTimestamp(5);
+            int category_id = resultSet.getInt(6);
+            String censor = resultSet.getString(7);
+            Blog blog = new Blog(header,author,category_id,date,censor);
+            blogByMe.add(blog);
+        }
+        return blogByMe;
+    }
+
+    @Override
+    public void insertBlog(Blog blog) throws SQLException {
+        String insetBlog = "call insertBlog(?,?,?,?,?)";
+        CallableStatement statement = connection.prepareCall(insetBlog);
+        statement.setString(1,blog.getHeader());
+        statement.setString(2,blog.getContent());
+        statement.setString(3,blog.getAuthor());
+        statement.setTimestamp(4,blog.getDate());
+        statement.setInt(5,blog.getCategory_id());
+        statement.executeUpdate();
     }
 
     @Override

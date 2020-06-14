@@ -62,10 +62,16 @@
                 <div class="text-center w-full p-t-23">
                     <a href="#" class="txt1">
                         Forgot password?
-                    </a><br/>
+                    </a><br/><br/>
                     <a href="http://localhost:8080/" style="color: white"> <- Back to Home Blog</a>
                 </div>
             </form>
+            <p style="text-align: center">
+                <c:if test="${requestScope['mess']!=null}">
+                    <span style="color: red; font-size: 24px">${requestScope['mess']}</span>
+
+                </c:if>
+            </p>
         </div>
     </div>
 </div>

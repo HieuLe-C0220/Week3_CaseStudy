@@ -5,10 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static Connection connection;
     private static final String url = "jdbc:mysql://localhost:3306/quanlyblogs";
     private static final String userName = "root";
     private static final String password = "123456";
+
+    private static Connection connection;
 
     public static Connection getConnection() {
         if (connection == null) {

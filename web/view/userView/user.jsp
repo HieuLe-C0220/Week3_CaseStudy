@@ -11,6 +11,6 @@
     <title>Dashboard - Blog</title>
 </head>
 <body>
-<a href="blogPost"></a>
+<a href="/userPage?action=blogPost"></a>
 </body>
 </html>

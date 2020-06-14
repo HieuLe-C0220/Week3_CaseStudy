@@ -2,7 +2,7 @@ package service.user;
 
 import model.User;
 import service.DBConnection;
-import service.login.CheckUser;
+import service.login.UserManager;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -30,26 +30,15 @@ public class UserDAO implements IUserDAO {
         CallableStatement statement = connection.prepareCall(getAllUser);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            String user = resultSet.getString("nickName");
+            String nickName1 = resultSet.getString("nickName");
             String pass = resultSet.getString("passwords");
             int permission_Id = resultSet.getInt("permission_Id");
-            User user1 = new User(user,pass,permission_Id);
+            User user1 = new User(nickName1,pass,permission_Id);
             userList.add(user1);
         }
-        return CheckUser.checkUser(nickName,password,userList);
+        return UserManager.checkUser(nickName,password,userList);
     }
 
-    @Override
-    public void insertUser(User user) throws SQLException {
-        String addUser = "call addUser(?,?,?,?,?)";
-        CallableStatement statement = connection.prepareCall(addUser);
-        statement.setString(1,user.getFirstName());
-        statement.setString(2,user.getLastName());
-        statement.setString(3,user.getAddress());
-        statement.setString(4,user.getNickName());
-        statement.setString(5,user.getPassWord());
-        statement.execute();
-    }
 
     @Override
     public User showUserByNickName(String nickName) throws SQLException {

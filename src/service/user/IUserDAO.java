@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface IUserDAO {
     User checkUser(String nickName,String password) throws SQLException;
-    void insertUser(User user) throws SQLException;
     User showUserByNickName(String nickName) throws SQLException;
     List<User> selectAllUser();
     boolean deleteUser(int id);

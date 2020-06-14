@@ -9,27 +9,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(name = "LoginServlet",urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     private final UserDAO userDAO = UserDAO.getInstance();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nickName = request.getParameter("nickName");
         String password = request.getParameter("password");
-        User user = null;
+        User user;
         try {
             user = userDAO.checkUser(nickName,password);
+            int permission_admin = 1;
+            int permission_QTV = 2;
             if (user != null) {
-//                HttpSession session = request.getSession();
-//                session.setAttribute("permission_id",user.getPermission_Id());
-//                System.out.println(user.getPermission_Id());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("view/homePage.jsp");
-                dispatcher.forward(request,response);
+                if (user.getPermission_Id()==permission_admin || user.getPermission_Id() == permission_QTV) {
+                    request.setAttribute("nickName",user);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/homePageAdmin.jsp");
+                    requestDispatcher.forward(request,response);
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("view/homePageUser.jsp");
+                    dispatcher.forward(request,response);
+                }
             } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("");
+                request.setAttribute("mess","Tài khoản không chính xác!!");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("view/login.jsp");
                 dispatcher.forward(request,response);
             }
         } catch (SQLException e) {
