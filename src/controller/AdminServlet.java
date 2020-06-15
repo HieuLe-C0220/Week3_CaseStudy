@@ -63,6 +63,10 @@ public class AdminServlet extends HttpServlet {
                     break;
                 case "readBlog":
                     readBlog(request,response);
+                case "readEditBlog":
+                    readEditBlog(request,response);
+                case "deleteBlog":
+                    deleteBlog(request,response);
                 default:
                     showInterface(request,response);
                     break;
@@ -84,6 +88,19 @@ public class AdminServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     }
 
+    private void deleteBlog(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        blogDAO.deleteBlog(id);
+        List<Blog> blogList = blogDAO.selectAllBlogApproved();
+        request.setAttribute("blogList",blogList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/adminView/blogList.jsp");
+        dispatcher.forward(request,response);
+    }
+
+    private void readEditBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/readEditBlog.jsp");
+        dispatcher.forward(request,response);
+    }
     private void readBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/readBlog.jsp");
         dispatcher.forward(request,response);
@@ -103,7 +120,7 @@ public class AdminServlet extends HttpServlet {
         Blog blog = new Blog(id,header,content,ts,category_id);
         blogDAO.updateBlog(blog);
         request.setAttribute("blogEdit",blogDAO.selectBlogById(id));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("view/readBlog.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/readEditBlog.jsp");
         dispatcher.forward(request,response);
     }
     private void postBlog(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -147,8 +164,7 @@ public class AdminServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
     private void showNewFormBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        User user =
-        String nickName = request.getParameter("nickName");
+        String nickName = request.getParameter("user");
         request.setAttribute("nickName",nickName);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/blogPost.jsp");
         dispatcher.forward(request,response);

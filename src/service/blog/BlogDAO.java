@@ -120,8 +120,12 @@ public class BlogDAO implements IBlogDAO {
     }
 
     @Override
-    public boolean deleteBlog(int id) {
-        return false;
+    public void deleteBlog(int id) throws SQLException {
+        Blog blog = selectBlogById(id);
+        String sql = "delete from blogs where id = ?;";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setInt(1,id);
+        pstm.execute();
     }
 
     @Override

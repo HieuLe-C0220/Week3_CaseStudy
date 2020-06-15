@@ -52,13 +52,10 @@
   <div class="container">
 
     <div class="row">
-
       <div class="col-md-8">
 
         <h1 class="my-4">Chia sẻ mọi lúc mọi nơi
         </h1>
-
-
           <div class="card mb-4">
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>

@@ -11,6 +11,6 @@ public interface IBlogDAO {
     Blog selectBlogById(int id) throws SQLException;
     List<Blog> selectAllBlogApproved() throws SQLException;
     List<Blog> selectAllBlogIsPending() throws SQLException;
-    boolean deleteBlog(int id);
+    void deleteBlog(int id) throws SQLException;
     void updateBlog(Blog blog) throws SQLException;
 }

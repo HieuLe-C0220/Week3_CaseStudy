@@ -30,14 +30,14 @@
         <c:forEach items="${blogApprovedList}" var="blog">
             <tr>
                 <td><c:out value="${blog.getId()}"/></td>
-                <td><c:out value="${blog.getHeader()}"/></td>
+                <td><a href="#"><c:out value="${blog.getHeader()}"/></a></td>
                 <td><c:out value="${blog.getAuthor()}"/></td>
                 <td><c:out value="${blog.getDate()}"/></td>
                 <td><c:out value="${blog.getCategory_id()}"/></td>
                 <td><c:out value="${blog.getCensor()}"/></td>
                 <td><c:out value="Đã duyệt"/></td>
                 <td><a href="/adminPage?action=editBlog&id=${blog.id}">Sửa</a>
-                    <a href="/adminPage?action=delete&id=${blog.id}">Xoá</a>
+                    <a href="/adminPage?action=deleteBlog&id=${blog.id}">Xoá</a>
                 </td>
             </tr>
         </c:forEach>
