@@ -8,9 +8,9 @@ import java.util.List;
 public interface IBlogDAO {
     void insertBlog(Blog blog) throws SQLException;
     List<Blog> selectBlogByNickName(String nickName) throws SQLException;
-    Blog selectBlog(int id);
+    Blog selectBlogById(int id) throws SQLException;
     List<Blog> selectAllBlogApproved() throws SQLException;
-    List<Blog> selectAllBlogIsPending();
+    List<Blog> selectAllBlogIsPending() throws SQLException;
     boolean deleteBlog(int id);
-    boolean updateBlog(Blog blog);
+    void updateBlog(Blog blog) throws SQLException;
 }

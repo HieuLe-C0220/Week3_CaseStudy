@@ -91,7 +91,15 @@ public class Blog {
         this.category_id = category_id;
     }
 
-    public Blog(String header, String content,Timestamp date, int category_id, int status) {
+    public Blog(int id, String header, String content, Timestamp date, int category_id) {
+        this.id = id;
+        this.header = header;
+        this.content = content;
+        this.date = date;
+        this.category_id = category_id;
+    }
+
+    public Blog(String header, String content, Timestamp date, int category_id, int status) {
         this.header = header;
         this.content = content;
         this.date = date;
@@ -109,6 +117,34 @@ public class Blog {
     public Blog(String header, String content, String author, Timestamp date, int category_id, String censor, int status) {
         this.header = header;
         this.content = content;
+        this.author = author;
+        this.date = date;
+        this.category_id = category_id;
+        this.censor = censor;
+        this.status = status;
+    }
+
+    public Blog(String header, String author, Timestamp date, int category_id, String censor, int status) {
+        this.header = header;
+        this.author = author;
+        this.date = date;
+        this.category_id = category_id;
+        this.censor = censor;
+        this.status = status;
+    }
+
+    public Blog(int id, String header, String content, String author, Timestamp date, int category_id) {
+        this.id = id;
+        this.header = header;
+        this.content = content;
+        this.author = author;
+        this.date = date;
+        this.category_id = category_id;
+    }
+
+    public Blog(int id, String header, String author, Timestamp date, int category_id, String censor, int status) {
+        this.id = id;
+        this.header = header;
         this.author = author;
         this.date = date;
         this.category_id = category_id;

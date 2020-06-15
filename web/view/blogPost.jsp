@@ -17,22 +17,13 @@
 
     <script type="text/javascript" src="bootstrapPostBlog/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="bootstrapPostBlog/bootstrap/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/adminPage?action=&user=${nickName.nickName}">My Blog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="sign_up_form.jsp"><c:out value="${nickName.nickName}"/></a>
-                </li>
-            </ul>
-        </div>
     </div>
 </nav>
 <div class="container">

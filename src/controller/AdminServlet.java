@@ -33,11 +33,14 @@ public class AdminServlet extends HttpServlet {
                     break;
                 case "browsePosts":
                     browsePost(request,response);
+                case "editBlog":
+                    editBlog(request,response);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -55,15 +58,18 @@ public class AdminServlet extends HttpServlet {
                 case "editBlog":
                     showEditBlog(request,response);
                     break;
+                case "blogWait":
+                    showBlogIsPending(request,response);
+                    break;
+                case "readBlog":
+                    readBlog(request,response);
                 default:
                     showInterface(request,response);
                     break;
 //            case "selectBlog":
 //                searchBlogByName(request,response);
 //                break;
-//            case "blogWait":
-//                showBlogIsPending(request,response);
-//                break;
+
 //            case "userList":
 //                showUserList(request,response);
 //                break;
@@ -78,6 +84,28 @@ public class AdminServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     }
 
+    private void readBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/readBlog.jsp");
+        dispatcher.forward(request,response);
+    }
+
+    private void showBlogIsPending(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+    private void editBlog(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String header = request.getParameter("header");
+        String content = request.getParameter("content");
+        String nickName = request.getParameter("author");
+        long millis1 =  new java.util.Date().getTime();
+        java.sql.Timestamp ts = new java.sql.Timestamp(millis1);
+        int category_id = Integer.parseInt(request.getParameter("category_id"));
+        Blog blog = new Blog(id,header,content,ts,category_id);
+        blogDAO.updateBlog(blog);
+        request.setAttribute("blogEdit",blogDAO.selectBlogById(id));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/readBlog.jsp");
+        dispatcher.forward(request,response);
+    }
     private void postBlog(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String header = request.getParameter("header");
         String content = request.getParameter("content");
@@ -88,10 +116,10 @@ public class AdminServlet extends HttpServlet {
         String censor = request.getParameter("user");
         int status = 1;
         Blog blog = new Blog(header,content,nickName,date,category_id,censor,status);
-        blogDAO.insertBlog(blog);
+        blogDAO.insertBlogByAdmin(blog);
         User user = new User(nickName);
         request.setAttribute("nickName",user);
-        request.setAttribute("mess","Blog was added and pending");
+        request.setAttribute("mess","Blog was added");
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/blogPost.jsp");
         dispatcher.forward(request,response);
     }
@@ -106,14 +134,14 @@ public class AdminServlet extends HttpServlet {
     }
 
     private void showBlogList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Blog> blogList = blogDAO.selectAllBlogApproved();
-        request.setAttribute("blogList",blogList);
+        List<Blog> blogApprovedList = blogDAO.selectAllBlogApproved();
+        request.setAttribute("blogApprovedList",blogApprovedList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/adminView/blogList.jsp");
         dispatcher.forward(request,response);
     }
-    private void showEditBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showEditBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Blog existingBlog = blogDAO.selectBlog(id);
+        Blog existingBlog = blogDAO.selectBlogById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/adminView/editBlog.jsp");
         request.setAttribute("blog",existingBlog);
         dispatcher.forward(request,response);

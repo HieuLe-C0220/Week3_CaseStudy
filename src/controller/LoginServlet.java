@@ -1,6 +1,8 @@
 package controller;
 
+import model.Blog;
 import model.User;
+import service.blog.BlogDAO;
 import service.user.UserDAO;
 
 import javax.servlet.RequestDispatcher;
@@ -11,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "LoginServlet",urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     private final UserDAO userDAO = UserDAO.getInstance();
+    private final BlogDAO blogDAO = BlogDAO.getInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nickName = request.getParameter("nickName");
@@ -26,6 +30,8 @@ public class LoginServlet extends HttpServlet {
             int permission_QTV = 2;
             if (user != null) {
                 if (user.getPermission_Id()==permission_admin || user.getPermission_Id() == permission_QTV) {
+                    List<Blog> blogApprovedList = blogDAO.selectAllBlogApproved();
+                    request.setAttribute("blogApprovedList",blogApprovedList);
                     request.setAttribute("nickName",user);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/homePageAdmin.jsp");
                     requestDispatcher.forward(request,response);

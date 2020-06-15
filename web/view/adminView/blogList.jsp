@@ -23,18 +23,20 @@
             <th scope="col">Tác giả</th>
             <th scope="col">Ngày đăng</th>
             <th scope="col">Thể loại</th>
+            <th scope="col">Người duyệt</th>
             <th scope="col">Trạng thái</th>
             <th colspan="3">Tuỳ chỉnh</th>
         </tr>
-        <c:forEach items="${blogList}" var="blog">
+        <c:forEach items="${blogApprovedList}" var="blog">
             <tr>
-                <td>${blog.getId()}</td>
-                <td>${blog.getHeader()}</td>
-                <td>${blog.getAuthor()}</td>
-                <td>${blog.getDate()}</td>
-                <td>${blog.getCategory_id()}</td>
-                <td>${blog.getstatus()}</td>
-                <td><a href="/adminPage?action=edit&id=${blog.id}">Sửa</a>
+                <td><c:out value="${blog.getId()}"/></td>
+                <td><c:out value="${blog.getHeader()}"/></td>
+                <td><c:out value="${blog.getAuthor()}"/></td>
+                <td><c:out value="${blog.getDate()}"/></td>
+                <td><c:out value="${blog.getCategory_id()}"/></td>
+                <td><c:out value="${blog.getCensor()}"/></td>
+                <td><c:out value="Đã duyệt"/></td>
+                <td><a href="/adminPage?action=editBlog&id=${blog.id}">Sửa</a>
                     <a href="/adminPage?action=delete&id=${blog.id}">Xoá</a>
                 </td>
             </tr>

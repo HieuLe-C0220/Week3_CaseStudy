@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: DELL
@@ -11,37 +12,53 @@
     <title>Edit Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" href="view/bootstrapPostBlog/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="view/bootstrapPostBlog/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrapPostBlog/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrapPostBlog/font-awesome/css/font-awesome.min.css" />
 
-    <script type="text/javascript" src="view/bootstrapPostBlog/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="view/bootstrapPostBlog/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrapPostBlog/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrapPostBlog/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<body>
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/adminPage?action=&user=${nickName.nickName}">My Blog</a>
+    </div>
+</nav>
 <div class="container">
-
     <div class="page-header">
-        <h1>New Blog Post <small>A responsive blog post template</small></h1>
+        <h1>New Blog Post <small>Bạn đang muốn chia sẻ điều gì?</small></h1>
     </div>
 
     <!-- New Blog Post - START -->
     <div class="container">
         <div class="row" id="row_style">
-            <h4 class="text-center">Submit new post</h4>
+            <p style="text-align: center">
+                <c:if test="${requestScope['mess']!=null}">
+                    <span class="mess">${requestScope['mess']}</span>
+                </c:if>
+            </p>
+            <h4 class="text-center">Chia sẻ là còn mãi</h4>
             <div class="col-md-4   col-md-offset-4">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Title">
-                </div>
-                <textarea id="editor" cols="30" rows="10">Submit your text post here...</textarea>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Tags">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" id="submit">Submit new post</button>
-                </div>
+                <form method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Tiêu đề" name="header" value="${blog.header}">
+                    </div>
+                    <textarea id="editor" cols="30" rows="10" placeholder="Nội dung..." name="content">
+                        <c:out value="${blog.content}"/>
+                    </textarea>
+                    <br>
+                    <div class="form-group">
+                        <select name="category_id">
+                            <option value="${blog.category_id}"></option>
+                            <option value="1">Kiến thức học tập</option>
+                            <option value="2">Funny Story</option>
+                            <option value="3">Tâm lý - tình cảm</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="submit">Submit new post</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
